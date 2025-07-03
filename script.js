@@ -10,7 +10,8 @@ const unlockTimes = {
     landing: new Date('2025-07-03T10:00:00-04:00'), // 10:00 AM EST
     card2: new Date('2025-07-03T12:00:00-04:00'),   // 12:00 PM EST
     card3: new Date('2025-07-03T12:00:00-04:00'),   // 12:00 PM EST
-    card4: new Date('2025-07-03T16:00:00-04:00')    // 4:00 PM EST
+    card4: new Date('2025-07-03T16:00:00-04:00'),   // 4:00 PM EST
+    card5: new Date('2025-07-03T19:30:00-04:00')    // 7:30 PM EST
 };
 
 // Current card being displayed
@@ -63,6 +64,16 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Add event listener for Card #4 to Card #5 button
+    const toCard5Btn = document.getElementById('to-card5-btn');
+    if (toCard5Btn) {
+        toCard5Btn.addEventListener('click', function() {
+            if (!this.classList.contains('locked')) {
+                showCard(5);
+            }
+        });
+    }
 });
 
 // Check if it's time to unlock various elements
@@ -83,6 +94,9 @@ function checkUnlockStatus() {
     }
     if (now >= unlockTimes.card4) {
         unlockCard(4);
+    }
+    if (now >= unlockTimes.card5) {
+        unlockCard(5);
     }
 }
 
@@ -131,6 +145,15 @@ function startCountdownTimers() {
     
     startCountdown('card4', unlockTimes.card4, () => {
         unlockCard(4);
+    });
+    
+    startCountdown('card5', unlockTimes.card5, () => {
+        unlockCard(5);
+    });
+    
+    // Card #5 inline countdown on Card #4
+    startCountdown('card5-inline', unlockTimes.card5, () => {
+        enableCard5Button();
     });
 }
 
@@ -181,6 +204,10 @@ function showCard(cardNumber) {
     }
     if (cardNumber === 4 && now < unlockTimes.card4) {
         showLockScreen('card4-lock');
+        return;
+    }
+    if (cardNumber === 5 && now < unlockTimes.card5) {
+        showLockScreen('card5-lock');
         return;
     }
     
@@ -264,6 +291,8 @@ function checkAnswer(cardNumber) {
         setTimeout(() => {
             if (cardNumber < 4) {
                 showCard(cardNumber + 1);
+            } else if (cardNumber === 4) {
+                showCard(5);
             }
         }, 2000);
         
@@ -457,4 +486,17 @@ style.textContent = `
         z-index: 10;
     }
 `;
-document.head.appendChild(style); 
+document.head.appendChild(style);
+
+function enableCard5Button() {
+    const btn = document.getElementById('to-card5-btn');
+    if (btn) {
+        btn.classList.remove('locked');
+        btn.disabled = false;
+    }
+    // Optionally hide the countdown when unlocked
+    const countdown = document.getElementById('card5-inline-countdown');
+    if (countdown) {
+        countdown.style.display = 'none';
+    }
+} 
