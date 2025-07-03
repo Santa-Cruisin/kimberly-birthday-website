@@ -62,6 +62,12 @@ function showCard(cardNumber) {
         targetPage.classList.add('active');
         currentCard = cardNumber;
         
+        // Scroll to top smoothly for mobile
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        
         // Add entrance animation
         targetPage.style.animation = 'none';
         targetPage.offsetHeight; // Trigger reflow
