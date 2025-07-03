@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, Beautiful! 🎂✨</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Landing Page -->
+        <div id="landing" class="page active">
+            <div class="hearts">
+                <div class="heart"></div>
+                <div class="heart"></div>
+                <div class="heart"></div>
+                <div class="heart"></div>
+                <div class="heart"></div>
+            </div>
+            
+            <div class="landing-content">
+                <h1 class="birthday-title">
+                    <span class="sparkle">✨</span>
+                    Happy Birthday, Beautiful!
+                    <span class="sparkle">✨</span>
+                </h1>
+                
+                <div class="birthday-message">
+                    <p>Today is all about you, my love.</p>
+                    <p>I've prepared a special scavenger hunt just for you.</p>
+                    <p>Are you ready for your birthday adventure?</p>
+                </div>
+                
+                <button id="start-btn" class="start-button">
+                    <i class="fas fa-heart"></i>
+                    Begin Your Journey
+                    <i class="fas fa-heart"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Card 1 -->
+        <div id="card1" class="page card-page">
+            <div class="card-container">
+                <div class="card-header">
+                    <h2>Card #1</h2>
+                    <div class="card-number">1</div>
+                </div>
+                
+                <div class="card-content">
+                    <p>Good morning, birthday girl.</p>
+                    <p>Today is a day spun just for you. Sweetness, warmth, and syrup — that's how we start.</p>
+                    <p><strong>Guess what's cooking?</strong></p>
+                </div>
+                
+                <div class="password-section">
+                    <p>Enter your answer to unlock the next card:</p>
+                    <input type="text" id="answer1" placeholder="Type your answer here..." class="answer-input">
+                    <button onclick="checkAnswer(1)" class="submit-btn">
+                        <i class="fas fa-unlock"></i>
+                        Unlock Next Card
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div id="card2" class="page card-page">
+            <div class="card-container">
+                <div class="card-header">
+                    <h2>Card #2</h2>
+                    <div class="card-number">2</div>
+                </div>
+                
+                <div class="card-content">
+                    <p>Your spirit is unique — and today, it calls for a special scent.</p>
+                    <p>Choose the aroma that aligns with your energy right now.</p>
+                    <p><em>(No questions. Just follow your heart.)</em></p>
+                    
+                    <div class="aroma-options">
+                        <div class="aroma-option" data-aroma="stress-relief">
+                            <h4>Stress Relief</h4>
+                            <p>Bright, earthy, citrusy, eases tension.</p>
+                        </div>
+                        <div class="aroma-option" data-aroma="zen-yoga">
+                            <h4>Zen Yoga</h4>
+                            <p>Cool, minty, fresh, balances mind & spirit.</p>
+                        </div>
+                        <div class="aroma-option" data-aroma="black-pepper">
+                            <h4>Black Pepper</h4>
+                            <p>Spicy, floral, deep — sultry and soothing.</p>
+                        </div>
+                        <div class="aroma-option" data-aroma="wood-spice">
+                            <h4>Wood Spice</h4>
+                            <p>Warm, woody, earthy — grounding and sensual.</p>
+                        </div>
+                        <div class="aroma-option" data-aroma="lavender">
+                            <h4>Lavender</h4>
+                            <p>Soft, sweet, floral — perfect for gentle calm.</p>
+                        </div>
+                    </div>
+                    
+                    <p class="aroma-question">💫 Which one speaks to you today?</p>
+                    
+                    <div class="password-section">
+                        <p>Enter your choice to unlock the next card:</p>
+                        <input type="text" id="answer2" placeholder="Type your choice here..." class="answer-input">
+                        <button onclick="checkAnswer(2)" class="submit-btn">
+                            <i class="fas fa-unlock"></i>
+                            Unlock Next Card
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div id="card3" class="page card-page">
+            <div class="card-container">
+                <div class="card-header">
+                    <h2>Card #3</h2>
+                    <div class="card-number">3</div>
+                </div>
+                
+                <div class="card-content">
+                    <p>Now, choose your birthday afternoon adventure. Where will we wander next?</p>
+                    
+                    <div class="adventure-options">
+                        <div class="adventure-option" data-adventure="garden">
+                            <h4>Option 1</h4>
+                            <p>'I am a hidden garden by river's flow,<br>
+                            where butterflies dance and old paths go.<br>
+                            Flowers sway, birds lightly sing —<br>
+                            come lose yourself in my wild green ring.'</p>
+                        </div>
+                        <div class="adventure-option" data-adventure="streets">
+                            <h4>Option 2</h4>
+                            <p>'Shaded streets will be our lane,<br>
+                            a frosty treat will cool the flame.<br>
+                            Hand in hand we'll stroll and roam,<br>
+                            exploring sweet corners close to home.'</p>
+                        </div>
+                        <div class="adventure-option" data-adventure="history">
+                            <h4>Option 3</h4>
+                            <p>'Stories whisper through hallowed halls,<br>
+                            echoes of freedom, muskets and calls.<br>
+                            Cool air, calm steps, history's grace —<br>
+                            escape the sun in this timeless place.'</p>
+                        </div>
+                    </div>
+                    
+                    <div class="password-section">
+                        <p>Enter your choice to unlock the next card:</p>
+                        <input type="text" id="answer3" placeholder="Type your choice here..." class="answer-input">
+                        <button onclick="checkAnswer(3)" class="submit-btn">
+                            <i class="fas fa-unlock"></i>
+                            Unlock Next Card
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div id="card4" class="page card-page">
+            <div class="card-container">
+                <div class="card-header">
+                    <h2>Card #4</h2>
+                    <div class="card-number">4</div>
+                </div>
+                
+                <div class="card-content">
+                    <p>The next chapter begins soon.</p>
+                    <p>Dress up for me in whatever makes you feel gorgeous and divine. We have a special dinner reservation — we'll step out at 6:15 sharp.</p>
+                    <p><em>(No more clues for now. Just trust me 💛)</em></p>
+                </div>
+                
+                <div class="final-message">
+                    <h3>Happy Birthday, my love! 🎂💕</h3>
+                    <p>I can't wait to spend this special day with you.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
