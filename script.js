@@ -5,16 +5,33 @@ const answers = {
     3: ['garden', 'streets', 'history', 'option 1', 'option 2', 'option 3'] // Card 3 - adventure choices
 };
 
+// Unlock times (EST) - July 3, 2025
+const unlockTimes = {
+    landing: new Date('2025-07-03T10:00:00-04:00'), // 10:00 AM EST
+    card2: new Date('2025-07-03T12:00:00-04:00'),   // 12:00 PM EST
+    card3: new Date('2025-07-03T12:00:00-04:00'),   // 12:00 PM EST
+    card4: new Date('2025-07-03T16:00:00-04:00')    // 4:00 PM EST
+};
+
 // Current card being displayed
 let currentCard = 0;
+let countdownIntervals = {};
 
 // Initialize the website
 document.addEventListener('DOMContentLoaded', function() {
+    // Check initial unlock status
+    checkUnlockStatus();
+    
+    // Start countdown timers
+    startCountdownTimers();
+    
     // Start button functionality
     const startBtn = document.getElementById('start-btn');
     if (startBtn) {
         startBtn.addEventListener('click', function() {
-            showCard(1);
+            if (!this.classList.contains('locked')) {
+                showCard(1);
+            }
         });
     }
 
@@ -48,8 +65,125 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// Check if it's time to unlock various elements
+function checkUnlockStatus() {
+    const now = new Date();
+    
+    // Check landing page unlock
+    if (now >= unlockTimes.landing) {
+        unlockLanding();
+    }
+    
+    // Check card unlocks
+    if (now >= unlockTimes.card2) {
+        unlockCard(2);
+    }
+    if (now >= unlockTimes.card3) {
+        unlockCard(3);
+    }
+    if (now >= unlockTimes.card4) {
+        unlockCard(4);
+    }
+}
+
+// Unlock the landing page
+function unlockLanding() {
+    const lockScreen = document.getElementById('landing-lock');
+    const startBtn = document.getElementById('start-btn');
+    
+    if (lockScreen) {
+        lockScreen.style.display = 'none';
+    }
+    
+    if (startBtn) {
+        startBtn.classList.remove('locked');
+    }
+}
+
+// Unlock a specific card
+function unlockCard(cardNumber) {
+    const lockPage = document.getElementById(`card${cardNumber}-lock`);
+    if (lockPage) {
+        lockPage.style.display = 'none';
+    }
+    
+    // If this card is currently being displayed as a lock screen, show the actual card
+    if (lockPage && lockPage.classList.contains('active')) {
+        showCard(cardNumber);
+    }
+}
+
+// Start countdown timers
+function startCountdownTimers() {
+    // Landing page countdown
+    startCountdown('landing', unlockTimes.landing, () => {
+        unlockLanding();
+    });
+    
+    // Card countdowns
+    startCountdown('card2', unlockTimes.card2, () => {
+        unlockCard(2);
+    });
+    
+    startCountdown('card3', unlockTimes.card3, () => {
+        unlockCard(3);
+    });
+    
+    startCountdown('card4', unlockTimes.card4, () => {
+        unlockCard(4);
+    });
+}
+
+// Start a countdown timer
+function startCountdown(prefix, unlockTime, onUnlock) {
+    const updateCountdown = () => {
+        const now = new Date();
+        const timeLeft = unlockTime - now;
+        
+        if (timeLeft <= 0) {
+            // Time to unlock
+            clearInterval(countdownIntervals[prefix]);
+            onUnlock();
+            return;
+        }
+        
+        // Calculate time units
+        const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+        
+        // Update display
+        const hoursEl = document.getElementById(`${prefix}-hours`);
+        const minutesEl = document.getElementById(`${prefix}-minutes`);
+        const secondsEl = document.getElementById(`${prefix}-seconds`);
+        
+        if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
+        if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
+        if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0');
+    };
+    
+    // Update immediately and then every second
+    updateCountdown();
+    countdownIntervals[prefix] = setInterval(updateCountdown, 1000);
+}
+
 // Show a specific card
 function showCard(cardNumber) {
+    // Check if card is unlocked
+    const now = new Date();
+    if (cardNumber === 2 && now < unlockTimes.card2) {
+        showLockScreen('card2-lock');
+        return;
+    }
+    if (cardNumber === 3 && now < unlockTimes.card3) {
+        showLockScreen('card3-lock');
+        return;
+    }
+    if (cardNumber === 4 && now < unlockTimes.card4) {
+        showLockScreen('card4-lock');
+        return;
+    }
+    
     // Hide all pages
     const pages = document.querySelectorAll('.page');
     pages.forEach(page => {
@@ -78,6 +212,27 @@ function showCard(cardNumber) {
         if (input) {
             setTimeout(() => input.focus(), 300);
         }
+    }
+}
+
+// Show lock screen for a card
+function showLockScreen(lockId) {
+    // Hide all pages
+    const pages = document.querySelectorAll('.page');
+    pages.forEach(page => {
+        page.classList.remove('active');
+    });
+
+    // Show the lock screen
+    const lockPage = document.getElementById(lockId);
+    if (lockPage) {
+        lockPage.classList.add('active');
+        
+        // Scroll to top smoothly for mobile
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     }
 }
 
@@ -180,7 +335,7 @@ function showErrorMessage(cardNumber) {
             animation: errorShake 0.6s ease-in-out;
         ">
             <i class="fas fa-times-circle" style="margin-right: 8px;"></i>
-            <span>Try again, silly! 💕</span>
+            <span>Try again, my love! 💕</span>
         </div>
     `;
     
@@ -241,6 +396,15 @@ document.addEventListener('keydown', function(e) {
             input.value = correctAnswer;
             checkAnswer(cardNumber);
         }
+    }
+    
+    // Ctrl/Cmd + T to unlock all (for testing)
+    if ((e.ctrlKey || e.metaKey) && e.key === 't') {
+        e.preventDefault();
+        unlockLanding();
+        unlockCard(2);
+        unlockCard(3);
+        unlockCard(4);
     }
 });
 
