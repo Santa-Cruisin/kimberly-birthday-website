@@ -1,7 +1,7 @@
 // Password answers for each card
 const answers = {
-    1: ['pancakes', 'waffles', 'french toast', 'breakfast'], // Card 1 - breakfast foods
-    2: ['stress relief', 'zen yoga', 'black pepper', 'wood spice', 'lavender'], // Card 2 - aroma choices
+    1: ['french toast'], // Card 1 - breakfast foods
+    2: ['stress-relief', 'zen-yoga', 'black-pepper', 'wood-spice', 'lavender'], // Card 2 - aroma choices
     3: ['garden', 'streets', 'history', 'option 1', 'option 2', 'option 3'] // Card 3 - adventure choices
 };
 
