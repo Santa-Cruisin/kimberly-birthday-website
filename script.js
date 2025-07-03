@@ -180,7 +180,7 @@ function showErrorMessage(cardNumber) {
             animation: errorShake 0.6s ease-in-out;
         ">
             <i class="fas fa-times-circle" style="margin-right: 8px;"></i>
-            <span>Try again, my love! 💕</span>
+            <span>Try again, silly! 💕</span>
         </div>
     `;
     
