@@ -7,7 +7,7 @@ const answers = {
 
 // Unlock times (EST) - July 3, 2025
 const unlockTimes = {
-    landing: new Date('2025-07-03T10:30:00-04:00'), // 10:30 AM EST
+    landing: new Date('2025-07-03T11:00:00-04:00'), // 11:00 AM EST
     card2: new Date('2025-07-03T12:00:00-04:00'),   // 12:00 PM EST
     card3: new Date('2025-07-03T12:00:00-04:00'),   // 12:00 PM EST
     card4: new Date('2025-07-03T16:00:00-04:00'),   // 4:00 PM EST
