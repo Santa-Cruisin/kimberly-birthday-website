@@ -7,7 +7,7 @@ const answers = {
 
 // Unlock times (EST) - July 3, 2025
 const unlockTimes = {
-    landing: new Date('2025-07-03T10:00:00-04:00'), // 10:00 AM EST
+    landing: new Date('2025-07-03T10:30:00-04:00'), // 10:30 AM EST
     card2: new Date('2025-07-03T12:00:00-04:00'),   // 12:00 PM EST
     card3: new Date('2025-07-03T12:00:00-04:00'),   // 12:00 PM EST
     card4: new Date('2025-07-03T16:00:00-04:00'),   // 4:00 PM EST
@@ -364,7 +364,7 @@ function showErrorMessage(cardNumber) {
             animation: errorShake 0.6s ease-in-out;
         ">
             <i class="fas fa-times-circle" style="margin-right: 8px;"></i>
-            <span>Try again, my love! 💕</span>
+            <span>Try again, silly!</span>
         </div>
     `;
     
